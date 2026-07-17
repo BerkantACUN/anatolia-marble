@@ -112,6 +112,25 @@
   margin-top: 2.2rem;
 }
 
+/* Slogan slide — only the slogan, dead centre like a statement */
+
+.hero-slide--center .hero-content {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-bottom: 0;
+}
+
+.hero-slide--center::after {
+  background: linear-gradient(rgba(15, 14, 12, 0.42), rgba(15, 14, 12, 0.42));
+}
+
+.hero-title--slogan {
+  font-size: clamp(3.4rem, 2rem + 9vw, 8.5rem);
+  max-width: none;
+  text-shadow: 0 2px 34px rgba(0, 0, 0, 0.35);
+}
+
 /* Staggered slide-content entrance */
 
 .hero-slide .hero-kicker,
