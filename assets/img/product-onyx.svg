@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1125" viewBox="0 0 900 1125" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bands" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0"    stop-color="#f0d9ac"/>
+      <stop offset="0.08" stop-color="#dfb473"/>
+      <stop offset="0.15" stop-color="#f6e6c4"/>
+      <stop offset="0.22" stop-color="#cf9a52"/>
+      <stop offset="0.30" stop-color="#eccf9d"/>
+      <stop offset="0.38" stop-color="#c68e45"/>
+      <stop offset="0.46" stop-color="#f3ddb4"/>
+      <stop offset="0.54" stop-color="#d9a75e"/>
+      <stop offset="0.62" stop-color="#f7ead0"/>
+      <stop offset="0.70" stop-color="#ca9350"/>
+      <stop offset="0.78" stop-color="#eed2a2"/>
+      <stop offset="0.86" stop-color="#d3a058"/>
+      <stop offset="0.94" stop-color="#f2dcb2"/>
+      <stop offset="1"    stop-color="#dcae6c"/>
+    </linearGradient>
+    <filter id="warp" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.011 0.038" numOctaves="4" seed="11" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="90" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="veins" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.004 0.09" numOctaves="3" seed="4" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 0.97  0 0 0 0 0.9  0 0 0 0.55 -0.22"/>
+    </filter>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="2" result="g"/>
+      <feColorMatrix in="g" type="matrix" values="0 0 0 0 0.45  0 0 0 0 0.33  0 0 0 0 0.18  0 0 0 0.06 0"/>
+    </filter>
+  </defs>
+  <rect x="-90" y="-112" width="1080" height="1350" fill="url(#bands)" filter="url(#warp)"/>
+  <rect x="-90" y="-112" width="1080" height="1350" filter="url(#veins)" opacity="0.5"/>
+  <rect width="900" height="1125" filter="url(#grain)"/>
+</svg>
