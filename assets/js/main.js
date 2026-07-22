@@ -1,10 +1,10 @@
 /* Anatolia Marble — main.js
    Header, mobile nav, language menu, hero slider, scroll reveals,
-   product filter, WhatsApp widget, contact form. */
+   product filter, product focus mode, contact form. */
 (function () {
   'use strict';
 
-  var WA_NUMBER = '905324768556';
+  var CONTACT_EMAIL = 'info@anatoliamarble.com';
   var REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function t(key) {
@@ -153,55 +153,68 @@
     /* Pre-select category from ?cat= query (links from home page cards) */
     var params = new URLSearchParams(window.location.search);
     var preset = params.get('cat');
-    var valid = { marble: 1, travertine: 1, limestone: 1, onyx: 1, andesite: 1 };
+    var valid = { marble: 1, travertine: 1, limestone: 1 };
     applyFilter(preset && valid[preset] ? preset : 'all');
   }
 
-  /* ---------- WhatsApp widget ---------- */
+  /* ---------- Product focus mode (products page) ---------- */
 
-  function initWhatsApp() {
-    var widget = document.querySelector('.wa-widget');
-    if (!widget) return;
+  function initProductFocus() {
+    var overlay = document.querySelector('.focus-overlay');
+    if (!overlay) return;
 
-    var fab = widget.querySelector('.wa-fab');
-    var textarea = widget.querySelector('.wa-panel-foot textarea');
-    var send = widget.querySelector('.wa-send');
-    var userEdited = false;
+    var card = overlay.querySelector('.focus-card');
+    var imgEl = overlay.querySelector('.focus-media img');
+    var chipEl = overlay.querySelector('.focus-chip');
+    var nameEl = overlay.querySelector('.focus-name');
+    var descEl = overlay.querySelector('.focus-desc');
+    var closeBtn = overlay.querySelector('.focus-close');
+    var canHover = window.matchMedia('(hover: hover)').matches;
+    var suppressUntil = 0;
 
-    function setDefaultMessage() {
-      if (textarea && !userEdited) textarea.value = t('wa.msg');
+    function openFrom(productCard) {
+      if (Date.now() < suppressUntil) return;
+      var img = productCard.querySelector('.product-media img');
+      imgEl.src = img.getAttribute('src');
+      imgEl.alt = img.alt;
+      chipEl.textContent = productCard.querySelector('.product-chip').textContent;
+      nameEl.textContent = productCard.querySelector('.product-info h3').textContent;
+      var key = productCard.getAttribute('data-desc');
+      descEl.textContent = (key && t(key)) || productCard.querySelector('.product-info p').textContent;
+      overlay.classList.add('is-open');
+      overlay.setAttribute('aria-hidden', 'false');
     }
 
-    fab.addEventListener('click', function () {
-      var open = widget.classList.toggle('is-open');
-      fab.setAttribute('aria-expanded', String(open));
-      if (open) setDefaultMessage();
+    function close() {
+      overlay.classList.remove('is-open');
+      overlay.setAttribute('aria-hidden', 'true');
+      /* the pointer may land back on a card — don't instantly reopen */
+      suppressUntil = Date.now() + 450;
+    }
+
+    var cards = document.querySelectorAll('.product-card');
+    for (var i = 0; i < cards.length; i++) {
+      (function (pc) {
+        pc.addEventListener('click', function () { openFrom(pc); });
+        if (canHover) {
+          pc.addEventListener('mouseenter', function () { openFrom(pc); });
+        }
+      })(cards[i]);
+    }
+
+    if (canHover) {
+      card.addEventListener('mouseleave', close);
+    }
+    overlay.addEventListener('click', function (e) {
+      if (!card.contains(e.target)) close();
     });
-
-    if (textarea) {
-      textarea.addEventListener('input', function () { userEdited = true; });
-    }
-
-    if (send) {
-      send.addEventListener('click', function () {
-        var msg = (textarea && textarea.value.trim()) || t('wa.msg');
-        window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
-      });
-    }
-
-    document.addEventListener('am:lang', setDefaultMessage);
-    setDefaultMessage();
-
-    /* Close when clicking outside */
-    document.addEventListener('click', function (e) {
-      if (widget.classList.contains('is-open') && !widget.contains(e.target)) {
-        widget.classList.remove('is-open');
-        fab.setAttribute('aria-expanded', 'false');
-      }
+    closeBtn.addEventListener('click', close);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') close();
     });
   }
 
-  /* ---------- Contact form → WhatsApp ---------- */
+  /* ---------- Contact form → e-mail ---------- */
 
   function initContactForm() {
     var form = document.querySelector('.contact-form');
@@ -228,7 +241,10 @@
       if (email) lines.push(email);
       if (phone) lines.push(phone);
 
-      window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
+      var subject = 'Website contact — ' + name;
+      window.location.href = 'mailto:' + CONTACT_EMAIL
+        + '?subject=' + encodeURIComponent(subject)
+        + '&body=' + encodeURIComponent(lines.join('\n'));
     });
   }
 
@@ -248,7 +264,7 @@
     initHeroSlider();
     initReveals();
     initProductFilter();
-    initWhatsApp();
+    initProductFocus();
     initContactForm();
     initYear();
   });

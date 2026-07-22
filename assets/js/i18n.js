@@ -5,7 +5,7 @@
   'use strict';
 
   var STORAGE_KEY = 'am-lang';
-  var SUPPORTED = ['en', 'tr', 'es', 'fr'];
+  var SUPPORTED = ['en', 'es', 'fr', 'ru'];
 
   function dicts() {
     return window.AM_TRANSLATIONS || {};
