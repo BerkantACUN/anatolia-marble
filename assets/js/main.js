@@ -1,6 +1,6 @@
 /* Anatolia Marble — main.js
    Header, mobile nav, language menu, hero slider, scroll reveals,
-   product filter, product focus mode, contact form. */
+   product filter, product dialog, contact form. */
 (function () {
   'use strict';
 
@@ -157,9 +157,10 @@
     applyFilter(preset && valid[preset] ? preset : 'all');
   }
 
-  /* ---------- Product focus mode (products page) ---------- */
+  /* ---------- Product dialog (products page) ----------
+     Hover kartin kendi icinde hallolur (CSS); dialog sadece tiklamayla acilir. */
 
-  function initProductFocus() {
+  function initProductDialog() {
     var overlay = document.querySelector('.focus-overlay');
     if (!overlay) return;
 
@@ -169,11 +170,8 @@
     var nameEl = overlay.querySelector('.focus-name');
     var descEl = overlay.querySelector('.focus-desc');
     var closeBtn = overlay.querySelector('.focus-close');
-    var canHover = window.matchMedia('(hover: hover)').matches;
-    var suppressUntil = 0;
 
-    function openFrom(productCard) {
-      if (Date.now() < suppressUntil) return;
+    function open(productCard) {
       var img = productCard.querySelector('.product-media img');
       imgEl.src = img.getAttribute('src');
       imgEl.alt = img.alt;
@@ -183,28 +181,22 @@
       descEl.textContent = (key && t(key)) || productCard.querySelector('.product-info p').textContent;
       overlay.classList.add('is-open');
       overlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
     }
 
     function close() {
       overlay.classList.remove('is-open');
       overlay.setAttribute('aria-hidden', 'true');
-      /* the pointer may land back on a card — don't instantly reopen */
-      suppressUntil = Date.now() + 450;
+      document.body.style.overflow = '';
     }
 
     var cards = document.querySelectorAll('.product-card');
     for (var i = 0; i < cards.length; i++) {
       (function (pc) {
-        pc.addEventListener('click', function () { openFrom(pc); });
-        if (canHover) {
-          pc.addEventListener('mouseenter', function () { openFrom(pc); });
-        }
+        pc.addEventListener('click', function () { open(pc); });
       })(cards[i]);
     }
 
-    if (canHover) {
-      card.addEventListener('mouseleave', close);
-    }
     overlay.addEventListener('click', function (e) {
       if (!card.contains(e.target)) close();
     });
@@ -264,7 +256,7 @@
     initHeroSlider();
     initReveals();
     initProductFilter();
-    initProductFocus();
+    initProductDialog();
     initContactForm();
     initYear();
   });
