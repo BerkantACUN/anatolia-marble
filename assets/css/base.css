@@ -36,7 +36,7 @@
   --dur-slow: 700ms;
 
   --radius: 2px;
-  --header-h: 7.25rem;
+  --header-h: 8.5rem;
 }
 
 /* ---------- Reset ---------- */
@@ -267,10 +267,16 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .brand { display: inline-flex; align-items: center; flex-shrink: 0; }
 
-.brand img { height: 6.75rem; width: auto; }
+.brand img { height: 8rem; width: auto; }
+
+@media (max-width: 920px) {
+  :root { --header-h: 7rem; }
+  .brand img { height: 6.4rem; }
+}
 
 @media (max-width: 560px) {
-  .brand img { height: 5rem; }
+  :root { --header-h: 5.75rem; }
+  .brand img { height: 4.9rem; }
 }
 
 .main-nav { display: flex; align-items: center; gap: 2.2rem; }
