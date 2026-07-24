@@ -230,6 +230,18 @@
     }
 
     var cards = document.querySelectorAll('.product-card');
+    for (var g = 0; g < cards.length; g++) {
+      var gal = cards[g].getAttribute('data-gallery');
+      if (!gal) continue;
+      var srcs = gal.split(',');
+      if (srcs.length < 2) continue;
+      var row = document.createElement('div');
+      row.className = 'product-thumbs';
+      for (var k = 0; k < srcs.length; k++) {
+        row.innerHTML += '<span><img src="' + srcs[k] + '" alt="" loading="lazy"></span>';
+      }
+      cards[g].querySelector('.product-info').appendChild(row);
+    }
     for (var i = 0; i < cards.length; i++) {
       (function (pc) {
         pc.addEventListener('click', function () { open(pc); });
