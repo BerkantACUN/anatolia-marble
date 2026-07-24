@@ -166,19 +166,58 @@
 
     var card = overlay.querySelector('.focus-card');
     var imgEl = overlay.querySelector('.focus-media img');
+    var thumbsEl = overlay.querySelector('.focus-thumbs');
     var chipEl = overlay.querySelector('.focus-chip');
     var nameEl = overlay.querySelector('.focus-name');
     var descEl = overlay.querySelector('.focus-desc');
     var closeBtn = overlay.querySelector('.focus-close');
 
+    function showImage(src, altText) {
+      imgEl.src = src;
+      imgEl.alt = altText;
+      var thumbs = thumbsEl.querySelectorAll('button');
+      for (var i = 0; i < thumbs.length; i++) {
+        thumbs[i].classList.toggle('is-active', thumbs[i].getAttribute('data-src') === src);
+      }
+    }
+
+    function buildGallery(sources, altText) {
+      thumbsEl.innerHTML = '';
+      if (sources.length < 2) {
+        thumbsEl.style.display = 'none';
+        return;
+      }
+      thumbsEl.style.display = '';
+      for (var i = 0; i < sources.length; i++) {
+        (function (src, idx) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.setAttribute('data-src', src);
+          b.setAttribute('aria-label', 'View image ' + (idx + 1));
+          var im = document.createElement('img');
+          im.src = src;
+          im.alt = '';
+          im.loading = 'lazy';
+          b.appendChild(im);
+          b.addEventListener('click', function () { showImage(src, altText); });
+          thumbsEl.appendChild(b);
+        })(sources[i], i);
+      }
+    }
+
     function open(productCard) {
       var img = productCard.querySelector('.product-media img');
-      imgEl.src = img.getAttribute('src');
-      imgEl.alt = img.alt;
+      var gallery = productCard.getAttribute('data-gallery');
+      var sources = gallery ? gallery.split(',') : [img.getAttribute('src')];
+
       chipEl.textContent = productCard.querySelector('.product-chip').textContent;
       nameEl.textContent = productCard.querySelector('.product-info h3').textContent;
       var key = productCard.getAttribute('data-desc');
       descEl.textContent = (key && t(key)) || productCard.querySelector('.product-info p').textContent;
+
+      buildGallery(sources, img.alt);
+      showImage(sources[0], img.alt);
+
       overlay.classList.add('is-open');
       overlay.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
