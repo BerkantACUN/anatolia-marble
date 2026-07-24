@@ -724,6 +724,8 @@
   color: var(--ink-soft);
 }
 
+.product-media .product-chip { display: none; }
+
 .product-info { padding: 1.1rem 0.2rem 0; }
 
 .product-info h3 {
