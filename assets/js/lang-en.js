@@ -171,6 +171,8 @@ window.AM_TRANSLATIONS.en = {
   'm.silentgray.d': 'Calm, even grey with subtle veins',
   'm.gloriawhite.d': 'Bright white with graceful grey veins',
   'm.gloriablue.d': 'Cool white-blue with flowing veins',
+  'm.ultrabeige.d': 'Warm ultra beige, soft and even',
+  'm.darktundra.d': 'Deep grey tundra with bold movement',
   'prod.note': 'Available as blocks, slabs and cut-to-size — polished, honed, brushed or tumbled.',
   'p.calacatta.long': 'A dramatic white marble crossed by bold grey and gold veining. Calacatta is the statement stone of luxury interiors — bookmatched walls, reception desks and grand bathrooms. Every slab is one of a kind.',
   'p.white.long': 'The legendary pure white of Afyon, quarried since Roman times. Its soft, uniform tone brings calm and light to any space, from flooring to full-height cladding.',
