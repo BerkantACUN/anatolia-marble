@@ -653,29 +653,38 @@
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-bottom: clamp(2rem, 4vw, 3rem);
+  justify-content: center;
+  gap: 0.7rem;
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
 }
 
 .filter-btn {
-  padding: 0.6rem 1.3rem;
-  font-size: 0.78rem;
+  padding: 0.8rem 1.9rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--ink-soft);
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 99px;
   transition: color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out),
-              background var(--dur) var(--ease-out);
+              background var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out),
+              transform var(--dur) var(--ease-out);
 }
 
-.filter-btn:hover { border-color: var(--accent); color: var(--accent-ink); }
+.filter-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent-ink);
+  background: #fff;
+  transform: translateY(-2px);
+}
 
 .filter-btn.is-active {
   background: var(--ink);
   border-color: var(--ink);
   color: #fff;
+  box-shadow: 0 8px 20px rgba(27, 26, 23, 0.16);
 }
 
 .product-grid {

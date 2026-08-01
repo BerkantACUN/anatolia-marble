@@ -483,6 +483,17 @@ body.nav-open .nav-toggle span:nth-child(3) { transform: translateY(-7.5px) rota
   align-items: flex-start;
 }
 
+.footer-addr-wrap { display: flex; flex-direction: column; }
+
+.footer-addr-label {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 0.25rem;
+}
+
 .footer-contact svg {
   flex-shrink: 0;
   width: 1rem;
