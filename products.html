@@ -66,6 +66,7 @@
           <button type="button" class="filter-btn" data-filter="limestone" data-i18n="cat.limestone">Limestones</button>
         </div>
 
+
         <div class="product-grid">
           <article class="product-card" data-cat="marble" data-gallery="assets/img/marble-whiteriver-1.jpg,assets/img/marble-whiteriver-2.jpg,assets/img/marble-whiteriver-3.jpg">
             <figure class="product-media">
@@ -673,6 +674,36 @@
         <p class="focus-note" data-i18n="prod.note">Available as blocks, slabs and cut-to-size — polished, honed, brushed or tumbled.</p>
       </div>
     </div>
+  </div>
+
+  <!-- Katalog widget (sag alt) -->
+  <div class="cat-widget">
+    <div class="cat-card" role="dialog" aria-label="Product catalogue">
+      <div class="cat-card-head">
+        <div>
+          <strong data-i18n="cat.wtitle">Product Catalogue</strong>
+          <span data-i18n="cat.wsub">2025 Collection · PDF</span>
+        </div>
+        <button type="button" class="cat-close" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <a class="cat-preview" href="assets/docs/anatolia-marble-catalogue.pdf" target="_blank" rel="noopener" aria-label="Open catalogue">
+        <iframe title="Catalogue preview" tabindex="-1" loading="lazy"></iframe>
+        <span class="cat-preview-veil"></span>
+      </a>
+      <div class="cat-card-foot">
+        <p data-i18n="cat.wdesc">Browse our full range of marble, travertine and limestone.</p>
+        <a class="btn cat-dl" href="assets/docs/anatolia-marble-catalogue.pdf" download="Anatolia-Marble-Catalogue-2025.pdf">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span data-i18n="prod.catalogue">Download Catalogue (PDF)</span>
+        </a>
+      </div>
+    </div>
+    <button type="button" class="cat-fab" aria-expanded="false" aria-label="Product catalogue">
+      <svg class="cat-fab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22.5z"/><path d="M4 4.5A2.5 2.5 0 0 0 6.5 7H20"/><line x1="9" y1="12" x2="15" y2="12"/></svg>
+      <span class="cat-fab-label" data-i18n="cat.wfab">Catalogue</span>
+    </button>
   </div>
 
   <script src="assets/js/lang-en.js"></script>
