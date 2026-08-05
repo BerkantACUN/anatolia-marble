@@ -251,34 +251,22 @@
     var widget = document.querySelector('.cat-widget');
     if (!widget) return;
 
-    var fab = widget.querySelector('.cat-fab');
     var closeBtn = widget.querySelector('.cat-close');
     var frame = widget.querySelector('.cat-preview iframe');
-    var loaded = false;
+    var KEY = 'am-cat-closed';
 
-    function open() {
-      widget.classList.add('is-open');
-      fab.setAttribute('aria-expanded', 'true');
-      if (!loaded && frame) {
-        frame.src = 'assets/docs/anatolia-marble-catalogue.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH';
-        loaded = true;
-      }
+    var closed = false;
+    try { closed = sessionStorage.getItem(KEY) === '1'; } catch (err) { /* ignore */ }
+
+    if (closed) {
+      widget.classList.add('is-closed');
+    } else if (frame) {
+      frame.src = 'assets/docs/anatolia-marble-catalogue.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH';
     }
 
-    function close() {
-      widget.classList.remove('is-open');
-      fab.setAttribute('aria-expanded', 'false');
-    }
-
-    fab.addEventListener('click', function () {
-      widget.classList.contains('is-open') ? close() : open();
-    });
-    closeBtn.addEventListener('click', close);
-    document.addEventListener('click', function (e) {
-      if (widget.classList.contains('is-open') && !widget.contains(e.target)) close();
-    });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') close();
+    closeBtn.addEventListener('click', function () {
+      widget.classList.add('is-closed');
+      try { sessionStorage.setItem(KEY, '1'); } catch (err) { /* ignore */ }
     });
   }
 

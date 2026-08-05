@@ -694,37 +694,7 @@
   right: clamp(1rem, 3vw, 1.75rem);
   bottom: clamp(1rem, 3vw, 1.75rem);
   z-index: 120;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.9rem;
 }
-
-.cat-fab {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.85rem 1.35rem;
-  border-radius: 99px;
-  background: var(--ink);
-  color: #fff;
-  box-shadow: 0 12px 30px rgba(27, 26, 23, 0.28);
-  transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out),
-              background var(--dur) var(--ease-out);
-}
-
-.cat-fab:hover { transform: translateY(-2px); background: var(--accent-ink); box-shadow: 0 16px 36px rgba(27, 26, 23, 0.34); }
-
-.cat-fab-icon { width: 1.35rem; height: 1.35rem; }
-
-.cat-fab-label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.cat-widget.is-open .cat-fab { background: var(--accent-ink); }
 
 .cat-card {
   width: min(21rem, calc(100vw - 2.5rem));
@@ -733,14 +703,22 @@
   overflow: hidden;
   box-shadow: 0 28px 64px rgba(27, 26, 23, 0.28);
   border: 1px solid var(--line);
+  transform-origin: bottom right;
+  transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out), visibility var(--dur);
+  animation: catIn 500ms var(--ease-out) both;
+}
+
+@keyframes catIn {
+  from { opacity: 0; transform: translateY(18px) scale(0.96); }
+  to   { opacity: 1; transform: none; }
+}
+
+.cat-widget.is-closed .cat-card {
   opacity: 0;
   visibility: hidden;
   transform: translateY(16px) scale(0.97);
-  transform-origin: bottom right;
-  transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out), visibility var(--dur);
+  pointer-events: none;
 }
-
-.cat-widget.is-open .cat-card { opacity: 1; visibility: visible; transform: none; }
 
 .cat-card-head {
   display: flex;
@@ -812,7 +790,7 @@
 
 .cat-preview:hover .cat-preview-veil { background: rgba(160, 129, 80, 0.08); }
 
-.cat-card-foot { padding: 1.1rem 1.2rem 1.25rem; }
+.cat-card-foot { position: relative; z-index: 2; padding: 1.1rem 1.2rem 1.25rem; }
 
 .cat-card-foot p {
   margin-bottom: 0.9rem;
